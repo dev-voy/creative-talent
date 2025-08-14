@@ -1,19 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useAuth } from "@/contexts/auth-context"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import { useAuth } from "@/contexts/auth-context";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function TalentProfilePage() {
-  const { user, logout } = useAuth()
-  const [isEditing, setIsEditing] = useState(false)
+  const { logout } = useAuth();
+  const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     displayName: "Sarah Johnson",
     tagline: "Versatile Actor & Voice Artist",
@@ -21,53 +33,63 @@ export default function TalentProfilePage() {
     location: "Los Angeles, CA",
     experience: "8+ years",
     category: "Actor",
-    skills: ["Acting", "Voice Acting", "Improvisation", "Stage Combat", "Singing"],
-    languages: ["English (Native)", "Spanish (Fluent)", "French (Conversational)"],
+    skills: [
+      "Acting",
+      "Voice Acting",
+      "Improvisation",
+      "Stage Combat",
+      "Singing",
+    ],
+    languages: [
+      "English (Native)",
+      "Spanish (Fluent)",
+      "French (Conversational)",
+    ],
     hourlyRate: "$150",
     availability: "Available",
-  })
+  });
 
-  const [newSkill, setNewSkill] = useState("")
-  const [newLanguage, setNewLanguage] = useState("")
+  const [newSkill, setNewSkill] = useState("");
+  const [newLanguage, setNewLanguage] = useState("");
 
   const handleSave = () => {
-    setIsEditing(false)
+    setIsEditing(false);
     // Here you would typically save to a database
-  }
+  };
 
   const addSkill = () => {
     if (newSkill.trim()) {
       setProfileData((prev) => ({
         ...prev,
         skills: [...prev.skills, newSkill.trim()],
-      }))
-      setNewSkill("")
+      }));
+      setNewSkill("");
     }
-  }
+  };
 
   const removeSkill = (skillToRemove: string) => {
     setProfileData((prev) => ({
       ...prev,
       skills: prev.skills.filter((skill) => skill !== skillToRemove),
-    }))
-  }
+    }));
+  };
 
   const addLanguage = () => {
     if (newLanguage.trim()) {
       setProfileData((prev) => ({
         ...prev,
         languages: [...prev.languages, newLanguage.trim()],
-      }))
-      setNewLanguage("")
+      }));
+      setNewLanguage("");
     }
-  }
+  };
 
   const removeLanguage = (languageToRemove: string) => {
     setProfileData((prev) => ({
       ...prev,
       languages: prev.languages.filter((lang) => lang !== languageToRemove),
-    }))
-  }
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -78,13 +100,19 @@ export default function TalentProfilePage() {
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">CT</span>
             </div>
-            <span className="font-bold text-xl text-gray-900">CreativeTalent</span>
+            <span className="font-bold text-xl text-gray-900">
+              CreativeTalent
+            </span>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="outline" onClick={() => window.history.back()}>
               Back to Dashboard
             </Button>
-            <Button variant="outline" onClick={logout} className="text-gray-700 bg-transparent">
+            <Button
+              variant="outline"
+              onClick={logout}
+              className="text-gray-700 bg-transparent"
+            >
               Sign Out
             </Button>
           </div>
@@ -94,8 +122,12 @@ export default function TalentProfilePage() {
       <main className="max-w-4xl mx-auto px-6 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">My Profile</h1>
-            <p className="text-gray-600">Manage your professional profile and showcase your talents</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              My Profile
+            </h1>
+            <p className="text-gray-600">
+              Manage your professional profile and showcase your talents
+            </p>
           </div>
           <Button
             onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
@@ -119,7 +151,9 @@ export default function TalentProfilePage() {
               <CardContent className="p-6">
                 <div className="flex items-start space-x-6">
                   <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-purple-600">SJ</span>
+                    <span className="text-2xl font-bold text-purple-600">
+                      SJ
+                    </span>
                   </div>
                   <div className="flex-1">
                     {isEditing ? (
@@ -129,7 +163,12 @@ export default function TalentProfilePage() {
                           <Input
                             id="displayName"
                             value={profileData.displayName}
-                            onChange={(e) => setProfileData((prev) => ({ ...prev, displayName: e.target.value }))}
+                            onChange={(e) =>
+                              setProfileData((prev) => ({
+                                ...prev,
+                                displayName: e.target.value,
+                              }))
+                            }
                           />
                         </div>
                         <div>
@@ -137,17 +176,31 @@ export default function TalentProfilePage() {
                           <Input
                             id="tagline"
                             value={profileData.tagline}
-                            onChange={(e) => setProfileData((prev) => ({ ...prev, tagline: e.target.value }))}
+                            onChange={(e) =>
+                              setProfileData((prev) => ({
+                                ...prev,
+                                tagline: e.target.value,
+                              }))
+                            }
                           />
                         </div>
                       </div>
                     ) : (
                       <>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-1">{profileData.displayName}</h2>
-                        <p className="text-lg text-purple-600 mb-2">{profileData.tagline}</p>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                          {profileData.displayName}
+                        </h2>
+                        <p className="text-lg text-purple-600 mb-2">
+                          {profileData.tagline}
+                        </p>
                         <div className="flex items-center space-x-4 text-sm text-gray-600">
                           <span className="flex items-center">
-                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg
+                              className="w-4 h-4 mr-1"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -164,7 +217,12 @@ export default function TalentProfilePage() {
                             {profileData.location}
                           </span>
                           <span className="flex items-center">
-                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg
+                              className="w-4 h-4 mr-1"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -201,12 +259,19 @@ export default function TalentProfilePage() {
                 {isEditing ? (
                   <Textarea
                     value={profileData.bio}
-                    onChange={(e) => setProfileData((prev) => ({ ...prev, bio: e.target.value }))}
+                    onChange={(e) =>
+                      setProfileData((prev) => ({
+                        ...prev,
+                        bio: e.target.value,
+                      }))
+                    }
                     rows={4}
                     placeholder="Tell us about yourself, your experience, and what makes you unique..."
                   />
                 ) : (
-                  <p className="text-gray-700 leading-relaxed">{profileData.bio}</p>
+                  <p className="text-gray-700 leading-relaxed">
+                    {profileData.bio}
+                  </p>
                 )}
               </CardContent>
             </Card>
@@ -220,7 +285,11 @@ export default function TalentProfilePage() {
                 <CardContent>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {profileData.skills.map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-purple-100 text-purple-800">
+                      <Badge
+                        key={skill}
+                        variant="secondary"
+                        className="bg-purple-100 text-purple-800"
+                      >
                         {skill}
                         {isEditing && (
                           <button
@@ -256,10 +325,16 @@ export default function TalentProfilePage() {
                 <CardContent>
                   <div className="space-y-2 mb-4">
                     {profileData.languages.map((language) => (
-                      <div key={language} className="flex items-center justify-between">
+                      <div
+                        key={language}
+                        className="flex items-center justify-between"
+                      >
                         <span className="text-gray-700">{language}</span>
                         {isEditing && (
-                          <button onClick={() => removeLanguage(language)} className="text-red-600 hover:text-red-800">
+                          <button
+                            onClick={() => removeLanguage(language)}
+                            className="text-red-600 hover:text-red-800"
+                          >
                             Remove
                           </button>
                         )}
@@ -293,11 +368,18 @@ export default function TalentProfilePage() {
                   {isEditing ? (
                     <Input
                       value={profileData.hourlyRate}
-                      onChange={(e) => setProfileData((prev) => ({ ...prev, hourlyRate: e.target.value }))}
+                      onChange={(e) =>
+                        setProfileData((prev) => ({
+                          ...prev,
+                          hourlyRate: e.target.value,
+                        }))
+                      }
                       placeholder="$150"
                     />
                   ) : (
-                    <p className="text-2xl font-bold text-green-600">{profileData.hourlyRate}/hour</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {profileData.hourlyRate}/hour
+                    </p>
                   )}
                 </CardContent>
               </Card>
@@ -310,7 +392,12 @@ export default function TalentProfilePage() {
                   {isEditing ? (
                     <Select
                       value={profileData.availability}
-                      onValueChange={(value) => setProfileData((prev) => ({ ...prev, availability: value }))}
+                      onValueChange={(value) =>
+                        setProfileData((prev) => ({
+                          ...prev,
+                          availability: value,
+                        }))
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -318,7 +405,9 @@ export default function TalentProfilePage() {
                       <SelectContent>
                         <SelectItem value="Available">Available</SelectItem>
                         <SelectItem value="Busy">Busy</SelectItem>
-                        <SelectItem value="Not Available">Not Available</SelectItem>
+                        <SelectItem value="Not Available">
+                          Not Available
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   ) : (
@@ -342,14 +431,21 @@ export default function TalentProfilePage() {
             <Card>
               <CardHeader>
                 <CardTitle>Portfolio & Media</CardTitle>
-                <CardDescription>Showcase your best work with photos, videos, and audio samples</CardDescription>
+                <CardDescription>
+                  Showcase your best work with photos, videos, and audio samples
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Sample portfolio items */}
                   <div className="bg-gray-100 rounded-lg p-4 text-center">
                     <div className="w-full h-32 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-8 h-8 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -358,13 +454,20 @@ export default function TalentProfilePage() {
                         />
                       </svg>
                     </div>
-                    <h4 className="font-medium text-gray-900">Demo Reel 2024</h4>
+                    <h4 className="font-medium text-gray-900">
+                      Demo Reel 2024
+                    </h4>
                     <p className="text-sm text-gray-600">Acting showcase</p>
                   </div>
 
                   <div className="bg-gray-100 rounded-lg p-4 text-center">
                     <div className="w-full h-32 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-8 h-8 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -379,7 +482,12 @@ export default function TalentProfilePage() {
 
                   <div className="bg-gray-100 rounded-lg p-4 text-center">
                     <div className="w-full h-32 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-8 h-8 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -402,7 +510,12 @@ export default function TalentProfilePage() {
                           stroke="currentColor"
                           viewBox="0 0 24 24"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 4v16m8-8H4"
+                          />
                         </svg>
                         <p className="text-sm text-gray-600">Upload Media</p>
                       </div>
@@ -417,37 +530,50 @@ export default function TalentProfilePage() {
             <Card>
               <CardHeader>
                 <CardTitle>Work Experience</CardTitle>
-                <CardDescription>Add your professional experience and notable projects</CardDescription>
+                <CardDescription>
+                  Add your professional experience and notable projects
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
                   <div className="border-l-2 border-purple-200 pl-4">
                     <h4 className="font-semibold text-gray-900">Lead Actor</h4>
-                    <p className="text-purple-600 font-medium">Independent Film "Midnight Dreams"</p>
+                    <p className="text-purple-600 font-medium">
+                      Independent Film &#34;Midnight Dreams&#34;
+                    </p>
                     <p className="text-sm text-gray-600 mb-2">2023 - 2024</p>
                     <p className="text-gray-700">
-                      Portrayed the main character in this psychological thriller, working closely with the director to
-                      develop a complex character arc spanning the entire film.
+                      Portrayed the main character in this psychological
+                      thriller, working closely with the director to develop a
+                      complex character arc spanning the entire film.
                     </p>
                   </div>
 
                   <div className="border-l-2 border-purple-200 pl-4">
                     <h4 className="font-semibold text-gray-900">Voice Actor</h4>
-                    <p className="text-purple-600 font-medium">Animated Series "Adventure Kids"</p>
+                    <p className="text-purple-600 font-medium">
+                      Animated Series &#34;Adventure Kids&#34;
+                    </p>
                     <p className="text-sm text-gray-600 mb-2">2022 - 2023</p>
                     <p className="text-gray-700">
-                      Voiced multiple characters in this children's animated series, including the main protagonist and
-                      several supporting characters across 24 episodes.
+                      Voiced multiple characters in this children&#39;s animated
+                      series, including the main protagonist and several
+                      supporting characters across 24 episodes.
                     </p>
                   </div>
 
                   <div className="border-l-2 border-purple-200 pl-4">
-                    <h4 className="font-semibold text-gray-900">Theater Performer</h4>
-                    <p className="text-purple-600 font-medium">Shakespeare in the Park</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Theater Performer
+                    </h4>
+                    <p className="text-purple-600 font-medium">
+                      Shakespeare in the Park
+                    </p>
                     <p className="text-sm text-gray-600 mb-2">2021 - 2022</p>
                     <p className="text-gray-700">
-                      Performed in multiple productions including Hamlet and Romeo & Juliet, developing strong stage
-                      presence and classical acting techniques.
+                      Performed in multiple productions including Hamlet and
+                      Romeo & Juliet, developing strong stage presence and
+                      classical acting techniques.
                     </p>
                   </div>
 
@@ -463,21 +589,31 @@ export default function TalentProfilePage() {
             <Card>
               <CardHeader>
                 <CardTitle>Profile Settings</CardTitle>
-                <CardDescription>Manage your profile visibility and preferences</CardDescription>
+                <CardDescription>
+                  Manage your profile visibility and preferences
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">Profile Visibility</h4>
-                    <p className="text-sm text-gray-600">Make your profile visible to producers</p>
+                    <h4 className="font-medium text-gray-900">
+                      Profile Visibility
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Make your profile visible to producers
+                    </p>
                   </div>
                   <Button variant="outline">Public</Button>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">Email Notifications</h4>
-                    <p className="text-sm text-gray-600">Receive notifications about new opportunities</p>
+                    <h4 className="font-medium text-gray-900">
+                      Email Notifications
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Receive notifications about new opportunities
+                    </p>
                   </div>
                   <Button variant="outline">Enabled</Button>
                 </div>
@@ -485,9 +621,13 @@ export default function TalentProfilePage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-medium text-gray-900">Profile URL</h4>
-                    <p className="text-sm text-gray-600">Your custom profile link</p>
+                    <p className="text-sm text-gray-600">
+                      Your custom profile link
+                    </p>
                   </div>
-                  <code className="text-sm bg-gray-100 px-2 py-1 rounded">creativetalent.com/talent/sarah-johnson</code>
+                  <code className="text-sm bg-gray-100 px-2 py-1 rounded">
+                    creativetalent.com/talent/sarah-johnson
+                  </code>
                 </div>
               </CardContent>
             </Card>
@@ -495,5 +635,5 @@ export default function TalentProfilePage() {
         </Tabs>
       </main>
     </div>
-  )
+  );
 }

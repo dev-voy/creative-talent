@@ -1,24 +1,35 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useAuth } from "@/contexts/auth-context"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
+import { use, useState } from "react";
+import Link from "next/link";
+import { useAuth } from "@/contexts/auth-context";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
-export default function JobDetailPage({ params }: { params: { id: string } }) {
-  const { user, logout } = useAuth()
-  const [isApplying, setIsApplying] = useState(false)
-  const [applicationSubmitted, setApplicationSubmitted] = useState(false)
-  const [coverLetter, setCoverLetter] = useState("")
+export default function JobDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = use(params);
+  const { user, logout } = useAuth();
+  const [isApplying, setIsApplying] = useState(false);
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const [coverLetter, setCoverLetter] = useState("");
 
   // Mock job data
   const job = {
-    id: params.id,
+    id: id,
     title: "Lead Actor - Indie Film",
     company: "Moonlight Productions",
     category: "Actor",
@@ -58,20 +69,24 @@ This is a fantastic opportunity to work with an award-winning director and be pa
       location: "Los Angeles, CA",
       description:
         "Independent film production company specializing in character-driven narratives and psychological thrillers.",
-      previousWorks: ["Shadow's Edge (2022)", "The Last Dream (2021)", "Whispers in the Dark (2020)"],
+      previousWorks: [
+        "Shadow's Edge (2022)",
+        "The Last Dream (2021)",
+        "Whispers in the Dark (2020)",
+      ],
     },
-  }
+  };
 
   const handleApply = async () => {
-    setIsApplying(true)
+    setIsApplying(true);
     // Simulate application submission
     setTimeout(() => {
-      setApplicationSubmitted(true)
-      setIsApplying(false)
-    }, 2000)
-  }
+      setApplicationSubmitted(true);
+      setIsApplying(false);
+    }, 2000);
+  };
 
-  const matchScore = 85 // Mock AI matching score
+  const matchScore = 85; // Mock AI matching score
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -82,16 +97,25 @@ This is a fantastic opportunity to work with an award-winning director and be pa
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">CT</span>
             </div>
-            <span className="font-bold text-xl text-gray-900">CreativeTalent</span>
+            <span className="font-bold text-xl text-gray-900">
+              CreativeTalent
+            </span>
           </div>
           <div className="flex items-center space-x-4">
             <Link href="/jobs">
-              <Button variant="outline" className="text-gray-700 bg-transparent">
+              <Button
+                variant="outline"
+                className="text-gray-700 bg-transparent"
+              >
                 Back to Jobs
               </Button>
             </Link>
             {user && (
-              <Button variant="outline" onClick={logout} className="text-gray-700 bg-transparent">
+              <Button
+                variant="outline"
+                onClick={logout}
+                className="text-gray-700 bg-transparent"
+              >
                 Sign Out
               </Button>
             )}
@@ -108,11 +132,20 @@ This is a fantastic opportunity to work with an award-winning director and be pa
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">{job.title}</h1>
-                    <p className="text-xl text-purple-600 font-medium mb-3">{job.company}</p>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                      {job.title}
+                    </h1>
+                    <p className="text-xl text-purple-600 font-medium mb-3">
+                      {job.company}
+                    </p>
                     <div className="flex items-center space-x-4 text-sm text-gray-600 mb-4">
                       <span className="flex items-center">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-4 h-4 mr-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -128,11 +161,20 @@ This is a fantastic opportunity to work with an award-winning director and be pa
                         </svg>
                         {job.location}
                       </span>
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                        {job.locationType.charAt(0).toUpperCase() + job.locationType.slice(1)}
+                      <Badge
+                        variant="secondary"
+                        className="bg-blue-100 text-blue-800"
+                      >
+                        {job.locationType.charAt(0).toUpperCase() +
+                          job.locationType.slice(1)}
                       </Badge>
                       <span className="flex items-center">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-4 h-4 mr-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -149,20 +191,28 @@ This is a fantastic opportunity to work with an award-winning director and be pa
                       <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
                         <div className="flex items-center space-x-2">
                           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                          <span className="text-sm font-medium text-green-800">{matchScore}% Match</span>
+                          <span className="text-sm font-medium text-green-800">
+                            {matchScore}% Match
+                          </span>
                         </div>
-                        <p className="text-xs text-green-700 mt-1">Great fit based on your profile</p>
+                        <p className="text-xs text-green-700 mt-1">
+                          Great fit based on your profile
+                        </p>
                       </div>
                     </div>
                   )}
                 </div>
 
                 <div className="flex items-center space-x-4 text-sm text-gray-600">
-                  <span>Posted {new Date(job.postedDate).toLocaleDateString()}</span>
+                  <span>
+                    Posted {new Date(job.postedDate).toLocaleDateString()}
+                  </span>
                   <span>•</span>
                   <span>{job.applicationCount} applications</span>
                   <span>•</span>
-                  <span>Deadline {new Date(job.deadline).toLocaleDateString()}</span>
+                  <span>
+                    Deadline {new Date(job.deadline).toLocaleDateString()}
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -175,7 +225,10 @@ This is a fantastic opportunity to work with an award-winning director and be pa
               <CardContent>
                 <div className="prose prose-gray max-w-none">
                   {job.description.split("\n\n").map((paragraph, index) => (
-                    <p key={index} className="text-gray-700 leading-relaxed mb-4">
+                    <p
+                      key={index}
+                      className="text-gray-700 leading-relaxed mb-4"
+                    >
                       {paragraph}
                     </p>
                   ))}
@@ -191,7 +244,10 @@ This is a fantastic opportunity to work with an award-winning director and be pa
               <CardContent>
                 <div className="prose prose-gray max-w-none">
                   {job.requirements.split("\n").map((requirement, index) => (
-                    <p key={index} className="text-gray-700 leading-relaxed mb-2">
+                    <p
+                      key={index}
+                      className="text-gray-700 leading-relaxed mb-2"
+                    >
                       {requirement}
                     </p>
                   ))}
@@ -207,7 +263,11 @@ This is a fantastic opportunity to work with an award-winning director and be pa
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {job.skills.map((skill) => (
-                    <Badge key={skill} variant="secondary" className="bg-purple-100 text-purple-800">
+                    <Badge
+                      key={skill}
+                      variant="secondary"
+                      className="bg-purple-100 text-purple-800"
+                    >
                       {skill}
                     </Badge>
                   ))}
@@ -230,7 +290,12 @@ This is a fantastic opportunity to work with an award-winning director and be pa
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                       {benefit}
                     </li>
@@ -245,19 +310,27 @@ This is a fantastic opportunity to work with an award-winning director and be pa
                 <CardTitle>About {job.companyInfo.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700 mb-4">{job.companyInfo.description}</p>
+                <p className="text-gray-700 mb-4">
+                  {job.companyInfo.description}
+                </p>
                 <div className="grid md:grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="font-medium text-gray-900">Founded:</span>
-                    <span className="text-gray-600 ml-2">{job.companyInfo.founded}</span>
+                    <span className="text-gray-600 ml-2">
+                      {job.companyInfo.founded}
+                    </span>
                   </div>
                   <div>
                     <span className="font-medium text-gray-900">Location:</span>
-                    <span className="text-gray-600 ml-2">{job.companyInfo.location}</span>
+                    <span className="text-gray-600 ml-2">
+                      {job.companyInfo.location}
+                    </span>
                   </div>
                 </div>
                 <div className="mt-4">
-                  <span className="font-medium text-gray-900 block mb-2">Previous Works:</span>
+                  <span className="font-medium text-gray-900 block mb-2">
+                    Previous Works:
+                  </span>
                   <ul className="text-gray-600 text-sm space-y-1">
                     {job.companyInfo.previousWorks.map((work, index) => (
                       <li key={index}>• {work}</li>
@@ -285,16 +358,32 @@ This is a fantastic opportunity to work with an award-winning director and be pa
                   {applicationSubmitted ? (
                     <div className="text-center py-6">
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        <svg
+                          className="w-8 h-8 text-green-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
                         </svg>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Application Submitted!</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        Application Submitted!
+                      </h3>
                       <p className="text-sm text-gray-600 mb-4">
-                        The producer will review your application and get back to you soon.
+                        The producer will review your application and get back
+                        to you soon.
                       </p>
                       <Link href="/talent/dashboard">
-                        <Button variant="outline" className="w-full bg-transparent">
+                        <Button
+                          variant="outline"
+                          className="w-full bg-transparent"
+                        >
                           View My Applications
                         </Button>
                       </Link>
@@ -319,7 +408,8 @@ This is a fantastic opportunity to work with an award-winning director and be pa
                         {isApplying ? "Submitting..." : "Submit Application"}
                       </Button>
                       <p className="text-xs text-gray-500 text-center">
-                        Your profile and portfolio will be included automatically
+                        Your profile and portfolio will be included
+                        automatically
                       </p>
                     </div>
                   )}
@@ -331,15 +421,22 @@ This is a fantastic opportunity to work with an award-winning director and be pa
               <Card className="sticky top-6">
                 <CardHeader>
                   <CardTitle>Interested in this role?</CardTitle>
-                  <CardDescription>Sign up to apply and get matched with similar opportunities</CardDescription>
+                  <CardDescription>
+                    Sign up to apply and get matched with similar opportunities
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
                     <Link href="/signup?type=talent">
-                      <Button className="w-full bg-purple-600 hover:bg-purple-700">Sign Up as Talent</Button>
+                      <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                        Sign Up as Talent
+                      </Button>
                     </Link>
                     <Link href="/login">
-                      <Button variant="outline" className="w-full bg-transparent">
+                      <Button
+                        variant="outline"
+                        className="w-full bg-transparent"
+                      >
                         Already have an account?
                       </Button>
                     </Link>
@@ -356,27 +453,37 @@ This is a fantastic opportunity to work with an award-winning director and be pa
               <CardContent className="space-y-4">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Category</span>
-                  <span className="font-medium text-gray-900">{job.category}</span>
+                  <span className="font-medium text-gray-900">
+                    {job.category}
+                  </span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
                   <span className="text-gray-600">Experience Level</span>
-                  <span className="font-medium text-gray-900">{job.experienceLevel}</span>
+                  <span className="font-medium text-gray-900">
+                    {job.experienceLevel}
+                  </span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
                   <span className="text-gray-600">Duration</span>
-                  <span className="font-medium text-gray-900">{job.duration}</span>
+                  <span className="font-medium text-gray-900">
+                    {job.duration}
+                  </span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
                   <span className="text-gray-600">Start Date</span>
-                  <span className="font-medium text-gray-900">{new Date(job.startDate).toLocaleDateString()}</span>
+                  <span className="font-medium text-gray-900">
+                    {new Date(job.startDate).toLocaleDateString()}
+                  </span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
                   <span className="text-gray-600">Budget Type</span>
-                  <span className="font-medium text-gray-900 capitalize">{job.budgetType}</span>
+                  <span className="font-medium text-gray-900 capitalize">
+                    {job.budgetType}
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -385,25 +492,45 @@ This is a fantastic opportunity to work with an award-winning director and be pa
             <Card>
               <CardHeader>
                 <CardTitle>Similar Opportunities</CardTitle>
-                <CardDescription>Other jobs you might be interested in</CardDescription>
+                <CardDescription>
+                  Other jobs you might be interested in
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="p-3 border border-gray-200 rounded-lg">
-                  <h4 className="font-medium text-gray-900 mb-1">Supporting Actor - TV Series</h4>
-                  <p className="text-sm text-gray-600 mb-2">Netflix Productions</p>
+                  <h4 className="font-medium text-gray-900 mb-1">
+                    Supporting Actor - TV Series
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-2">
+                    Netflix Productions
+                  </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-green-600 font-medium">$3,000 - $5,000</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
+                    <span className="text-sm text-green-600 font-medium">
+                      $3,000 - $5,000
+                    </span>
+                    <Badge
+                      variant="secondary"
+                      className="bg-green-100 text-green-800 text-xs"
+                    >
                       92% Match
                     </Badge>
                   </div>
                 </div>
                 <div className="p-3 border border-gray-200 rounded-lg">
-                  <h4 className="font-medium text-gray-900 mb-1">Theater Actor - Broadway</h4>
-                  <p className="text-sm text-gray-600 mb-2">Broadway Productions</p>
+                  <h4 className="font-medium text-gray-900 mb-1">
+                    Theater Actor - Broadway
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-2">
+                    Broadway Productions
+                  </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-green-600 font-medium">$4,000/month</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
+                    <span className="text-sm text-green-600 font-medium">
+                      $4,000/month
+                    </span>
+                    <Badge
+                      variant="secondary"
+                      className="bg-green-100 text-green-800 text-xs"
+                    >
                       88% Match
                     </Badge>
                   </div>
@@ -419,5 +546,5 @@ This is a fantastic opportunity to work with an award-winning director and be pa
         </div>
       </main>
     </div>
-  )
+  );
 }

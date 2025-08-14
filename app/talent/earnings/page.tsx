@@ -1,16 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { DollarSign, TrendingUp, Clock, CheckCircle, CreditCard, Download, Search, Filter } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  DollarSign,
+  TrendingUp,
+  Clock,
+  CheckCircle,
+  CreditCard,
+  Download,
+  Search,
+  Filter,
+} from "lucide-react";
 
 export default function TalentEarningsPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   // Mock earnings data
   const earnings = [
@@ -22,8 +37,18 @@ export default function TalentEarningsPage() {
       status: "completed",
       paidAt: "2024-01-20",
       milestones: [
-        { name: "Initial Recording", amount: 2000, status: "paid", paidAt: "2024-01-20" },
-        { name: "Final Performance", amount: 3000, status: "paid", paidAt: "2024-01-20" },
+        {
+          name: "Initial Recording",
+          amount: 2000,
+          status: "paid",
+          paidAt: "2024-01-20",
+        },
+        {
+          name: "Final Performance",
+          amount: 3000,
+          status: "paid",
+          paidAt: "2024-01-20",
+        },
       ],
     },
     {
@@ -34,8 +59,18 @@ export default function TalentEarningsPage() {
       status: "in-escrow",
       createdAt: "2024-01-15",
       milestones: [
-        { name: "Choreography", amount: 1500, status: "paid", paidAt: "2024-01-15" },
-        { name: "Video Shoot", amount: 2000, status: "escrowed", dueDate: "2024-02-01" },
+        {
+          name: "Choreography",
+          amount: 1500,
+          status: "paid",
+          paidAt: "2024-01-15",
+        },
+        {
+          name: "Video Shoot",
+          amount: 2000,
+          status: "escrowed",
+          dueDate: "2024-02-01",
+        },
       ],
     },
     {
@@ -46,42 +81,56 @@ export default function TalentEarningsPage() {
       status: "pending",
       createdAt: "2024-01-18",
       milestones: [
-        { name: "Voice Recording Session 1", amount: 2100, status: "pending", dueDate: "2024-02-01" },
-        { name: "Voice Recording Session 2", amount: 2100, status: "pending", dueDate: "2024-02-20" },
+        {
+          name: "Voice Recording Session 1",
+          amount: 2100,
+          status: "pending",
+          dueDate: "2024-02-01",
+        },
+        {
+          name: "Voice Recording Session 2",
+          amount: 2100,
+          status: "pending",
+          dueDate: "2024-02-20",
+        },
       ],
     },
-  ]
+  ];
 
   const filteredEarnings = earnings.filter((earning) => {
     const matchesSearch =
       earning.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      earning.producer.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === "all" || earning.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+      earning.producer.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || earning.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "completed":
-        return "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800";
       case "in-escrow":
-        return "bg-blue-100 text-blue-800"
+        return "bg-blue-100 text-blue-800";
       case "pending":
-        return "bg-yellow-100 text-yellow-800"
+        return "bg-yellow-100 text-yellow-800";
       case "disputed":
-        return "bg-red-100 text-red-800"
+        return "bg-red-100 text-red-800";
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
-  const totalEarnings = earnings.reduce((sum, earning) => sum + earning.amount, 0)
+  const totalEarnings = earnings.reduce(
+    (sum, earning) => sum + earning.amount,
+    0
+  );
   const completedEarnings = earnings
     .filter((e) => e.status === "completed")
-    .reduce((sum, earning) => sum + earning.amount, 0)
+    .reduce((sum, earning) => sum + earning.amount, 0);
   const pendingEarnings = earnings
     .filter((e) => e.status === "pending" || e.status === "in-escrow")
-    .reduce((sum, earning) => sum + earning.amount, 0)
+    .reduce((sum, earning) => sum + earning.amount, 0);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -89,7 +138,9 @@ export default function TalentEarningsPage() {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">My Earnings</h1>
-            <p className="text-gray-600 mt-2">Track your payments and contract earnings</p>
+            <p className="text-gray-600 mt-2">
+              Track your payments and contract earnings
+            </p>
           </div>
           <Button className="bg-purple-600 hover:bg-purple-700">
             <Download className="w-4 h-4 mr-2" />
@@ -104,8 +155,12 @@ export default function TalentEarningsPage() {
               <div className="flex items-center">
                 <DollarSign className="w-8 h-8 text-green-600" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Earnings</p>
-                  <p className="text-2xl font-bold text-gray-900">${totalEarnings.toLocaleString()}</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    Total Earnings
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    ${totalEarnings.toLocaleString()}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -116,7 +171,9 @@ export default function TalentEarningsPage() {
                 <CheckCircle className="w-8 h-8 text-green-600" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Paid Out</p>
-                  <p className="text-2xl font-bold text-gray-900">${completedEarnings.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    ${completedEarnings.toLocaleString()}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -127,7 +184,9 @@ export default function TalentEarningsPage() {
                 <Clock className="w-8 h-8 text-blue-600" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Pending</p>
-                  <p className="text-2xl font-bold text-gray-900">${pendingEarnings.toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    ${pendingEarnings.toLocaleString()}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -137,7 +196,9 @@ export default function TalentEarningsPage() {
               <div className="flex items-center">
                 <TrendingUp className="w-8 h-8 text-purple-600" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">This Month</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    This Month
+                  </p>
                   <p className="text-2xl font-bold text-gray-900">$8,500</p>
                 </div>
               </div>
@@ -174,46 +235,64 @@ export default function TalentEarningsPage() {
         {/* Earnings List */}
         <div className="grid gap-4">
           {filteredEarnings.map((earning) => (
-            <Card key={earning.id} className="hover:shadow-md transition-shadow">
+            <Card
+              key={earning.id}
+              className="hover:shadow-md transition-shadow"
+            >
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900">{earning.project}</h3>
+                    <h3 className="text-xl font-semibold text-gray-900">
+                      {earning.project}
+                    </h3>
                     <p className="text-gray-600">{earning.producer}</p>
                     <p className="text-sm text-gray-500">
-                      {earning.status === "completed" ? `Paid ${earning.paidAt}` : `Created ${earning.createdAt}`}
+                      {earning.status === "completed"
+                        ? `Paid ${earning.paidAt}`
+                        : `Created ${earning.createdAt}`}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-gray-900">${earning.amount.toLocaleString()}</p>
-                    <Badge className={getStatusColor(earning.status)}>{earning.status}</Badge>
+                    <p className="text-2xl font-bold text-gray-900">
+                      ${earning.amount.toLocaleString()}
+                    </p>
+                    <Badge className={getStatusColor(earning.status)}>
+                      {earning.status}
+                    </Badge>
                   </div>
                 </div>
 
                 {/* Payment Milestones */}
                 <div className="space-y-2 mb-4">
-                  <h4 className="font-medium text-gray-900">Payment Breakdown</h4>
+                  <h4 className="font-medium text-gray-900">
+                    Payment Breakdown
+                  </h4>
                   {earning.milestones.map((milestone, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <div
+                      key={index}
+                      className="flex justify-between items-center p-3 bg-gray-50 rounded-lg"
+                    >
                       <div>
                         <p className="font-medium">{milestone.name}</p>
                         <p className="text-sm text-gray-500">
                           {milestone.status === "paid"
                             ? `Paid on ${milestone.paidAt}`
                             : milestone.status === "escrowed"
-                              ? "In escrow"
-                              : `Due ${milestone.dueDate}`}
+                            ? "In escrow"
+                            : "Due by 2024-02-01"}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">${milestone.amount.toLocaleString()}</p>
+                        <p className="font-semibold">
+                          ${milestone.amount.toLocaleString()}
+                        </p>
                         <Badge
                           className={
                             milestone.status === "paid"
                               ? "bg-green-100 text-green-800"
                               : milestone.status === "escrowed"
-                                ? "bg-blue-100 text-blue-800"
-                                : "bg-yellow-100 text-yellow-800"
+                              ? "bg-blue-100 text-blue-800"
+                              : "bg-yellow-100 text-yellow-800"
                           }
                         >
                           {milestone.status}
@@ -241,5 +320,5 @@ export default function TalentEarningsPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

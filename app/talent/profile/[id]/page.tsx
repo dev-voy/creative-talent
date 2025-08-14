@@ -1,31 +1,53 @@
-"use client"
+"use client";
 
-import { useAuth } from "@/contexts/auth-context"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useAuth } from "@/contexts/auth-context";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { use } from "react";
 
-export default function TalentProfileViewPage({ params }: { params: { id: string } }) {
-  const { user, logout } = useAuth()
+export default function TalentProfileViewPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = use(params);
+  const { user, logout } = useAuth();
 
   // Mock data for viewing another talent's profile
   const talentProfile = {
-    id: params.id,
+    id: id,
     displayName: "Michael Chen",
     tagline: "Award-Winning Voice Actor & Musician",
     bio: "Professional voice actor with over 10 years of experience in animation, video games, and commercial work. Also an accomplished musician specializing in film scoring.",
     location: "New York, NY",
     experience: "10+ years",
     category: "Voice Actor",
-    skills: ["Voice Acting", "Music Composition", "Audio Production", "Character Development", "Singing"],
-    languages: ["English (Native)", "Mandarin (Native)", "Japanese (Conversational)"],
+    skills: [
+      "Voice Acting",
+      "Music Composition",
+      "Audio Production",
+      "Character Development",
+      "Singing",
+    ],
+    languages: [
+      "English (Native)",
+      "Mandarin (Native)",
+      "Japanese (Conversational)",
+    ],
     hourlyRate: "$200",
     availability: "Available",
     rating: 4.9,
     completedProjects: 47,
     responseTime: "2 hours",
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -36,16 +58,24 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">CT</span>
             </div>
-            <span className="font-bold text-xl text-gray-900">CreativeTalent</span>
+            <span className="font-bold text-xl text-gray-900">
+              CreativeTalent
+            </span>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="outline" onClick={() => window.history.back()}>
               Back
             </Button>
             {user?.userType === "producer" && (
-              <Button className="bg-purple-600 hover:bg-purple-700">Contact Talent</Button>
+              <Button className="bg-purple-600 hover:bg-purple-700">
+                Contact Talent
+              </Button>
             )}
-            <Button variant="outline" onClick={logout} className="text-gray-700 bg-transparent">
+            <Button
+              variant="outline"
+              onClick={logout}
+              className="text-gray-700 bg-transparent"
+            >
               Sign Out
             </Button>
           </div>
@@ -69,11 +99,20 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                     <span className="text-2xl font-bold text-blue-600">MC</span>
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-1">{talentProfile.displayName}</h2>
-                    <p className="text-lg text-purple-600 mb-2">{talentProfile.tagline}</p>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                      {talentProfile.displayName}
+                    </h2>
+                    <p className="text-lg text-purple-600 mb-2">
+                      {talentProfile.tagline}
+                    </p>
                     <div className="flex items-center space-x-4 text-sm text-gray-600 mb-4">
                       <span className="flex items-center">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-4 h-4 mr-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -90,7 +129,12 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                         {talentProfile.location}
                       </span>
                       <span className="flex items-center">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-4 h-4 mr-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -115,19 +159,33 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                     {/* Stats */}
                     <div className="flex items-center space-x-6 text-sm">
                       <div className="flex items-center">
-                        <svg className="w-4 h-4 text-yellow-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <svg
+                          className="w-4 h-4 text-yellow-500 mr-1"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
-                        <span className="font-medium">{talentProfile.rating}</span>
+                        <span className="font-medium">
+                          {talentProfile.rating}
+                        </span>
                         <span className="text-gray-600 ml-1">rating</span>
                       </div>
                       <div>
-                        <span className="font-medium">{talentProfile.completedProjects}</span>
-                        <span className="text-gray-600 ml-1">projects completed</span>
+                        <span className="font-medium">
+                          {talentProfile.completedProjects}
+                        </span>
+                        <span className="text-gray-600 ml-1">
+                          projects completed
+                        </span>
                       </div>
                       <div>
-                        <span className="font-medium">{talentProfile.responseTime}</span>
-                        <span className="text-gray-600 ml-1">avg response time</span>
+                        <span className="font-medium">
+                          {talentProfile.responseTime}
+                        </span>
+                        <span className="text-gray-600 ml-1">
+                          avg response time
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -141,7 +199,9 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                 <CardTitle>About</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700 leading-relaxed">{talentProfile.bio}</p>
+                <p className="text-gray-700 leading-relaxed">
+                  {talentProfile.bio}
+                </p>
               </CardContent>
             </Card>
 
@@ -154,7 +214,11 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
                     {talentProfile.skills.map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-purple-100 text-purple-800">
+                      <Badge
+                        key={skill}
+                        variant="secondary"
+                        className="bg-purple-100 text-purple-800"
+                      >
                         {skill}
                       </Badge>
                     ))}
@@ -185,7 +249,9 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                   <CardTitle>Hourly Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-green-600">{talentProfile.hourlyRate}/hour</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    {talentProfile.hourlyRate}/hour
+                  </p>
                 </CardContent>
               </Card>
 
@@ -196,13 +262,20 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                 <CardContent>
                   {user?.userType === "producer" ? (
                     <div className="space-y-2">
-                      <Button className="w-full bg-purple-600 hover:bg-purple-700">Send Message</Button>
-                      <Button variant="outline" className="w-full bg-transparent">
+                      <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                        Send Message
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="w-full bg-transparent"
+                      >
                         Invite to Project
                       </Button>
                     </div>
                   ) : (
-                    <p className="text-gray-600">Sign in as a producer to contact this talent.</p>
+                    <p className="text-gray-600">
+                      Sign in as a producer to contact this talent.
+                    </p>
                   )}
                 </CardContent>
               </Card>
@@ -213,13 +286,20 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
             <Card>
               <CardHeader>
                 <CardTitle>Portfolio & Media</CardTitle>
-                <CardDescription>Professional work samples and demonstrations</CardDescription>
+                <CardDescription>
+                  Professional work samples and demonstrations
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-gray-100 rounded-lg p-4 text-center">
                     <div className="w-full h-32 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-8 h-8 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -228,13 +308,20 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                         />
                       </svg>
                     </div>
-                    <h4 className="font-medium text-gray-900">Character Voice Reel</h4>
+                    <h4 className="font-medium text-gray-900">
+                      Character Voice Reel
+                    </h4>
                     <p className="text-sm text-gray-600">Animation & Gaming</p>
                   </div>
 
                   <div className="bg-gray-100 rounded-lg p-4 text-center">
                     <div className="w-full h-32 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-8 h-8 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -243,13 +330,20 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                         />
                       </svg>
                     </div>
-                    <h4 className="font-medium text-gray-900">Commercial Samples</h4>
+                    <h4 className="font-medium text-gray-900">
+                      Commercial Samples
+                    </h4>
                     <p className="text-sm text-gray-600">Brand voice work</p>
                   </div>
 
                   <div className="bg-gray-100 rounded-lg p-4 text-center">
                     <div className="w-full h-32 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-8 h-8 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -258,8 +352,12 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
                         />
                       </svg>
                     </div>
-                    <h4 className="font-medium text-gray-900">Original Music</h4>
-                    <p className="text-sm text-gray-600">Film scoring samples</p>
+                    <h4 className="font-medium text-gray-900">
+                      Original Music
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Film scoring samples
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -270,37 +368,52 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
             <Card>
               <CardHeader>
                 <CardTitle>Professional Experience</CardTitle>
-                <CardDescription>Career highlights and notable projects</CardDescription>
+                <CardDescription>
+                  Career highlights and notable projects
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
                   <div className="border-l-2 border-blue-200 pl-4">
-                    <h4 className="font-semibold text-gray-900">Lead Voice Actor</h4>
-                    <p className="text-blue-600 font-medium">AAA Video Game "Mystic Realms"</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Lead Voice Actor
+                    </h4>
+                    <p className="text-blue-600 font-medium">
+                      AAA Video Game &#34;Mystic Realms&#34;
+                    </p>
                     <p className="text-sm text-gray-600 mb-2">2023 - Present</p>
                     <p className="text-gray-700">
-                      Voicing the main protagonist in this fantasy RPG, working with motion capture technology and
-                      collaborating with international development teams.
+                      Voicing the main protagonist in this fantasy RPG, working
+                      with motion capture technology and collaborating with
+                      international development teams.
                     </p>
                   </div>
 
                   <div className="border-l-2 border-blue-200 pl-4">
-                    <h4 className="font-semibold text-gray-900">Music Composer</h4>
-                    <p className="text-blue-600 font-medium">Independent Film "Echoes of Tomorrow"</p>
+                    <h4 className="font-semibold text-gray-900">
+                      Music Composer
+                    </h4>
+                    <p className="text-blue-600 font-medium">
+                      Independent Film &#34;Echoes of Tomorrow&#34;
+                    </p>
                     <p className="text-sm text-gray-600 mb-2">2022 - 2023</p>
                     <p className="text-gray-700">
-                      Composed and produced the complete musical score for this sci-fi drama, including orchestral
-                      arrangements and electronic elements.
+                      Composed and produced the complete musical score for this
+                      sci-fi drama, including orchestral arrangements and
+                      electronic elements.
                     </p>
                   </div>
 
                   <div className="border-l-2 border-blue-200 pl-4">
                     <h4 className="font-semibold text-gray-900">Voice Actor</h4>
-                    <p className="text-blue-600 font-medium">Animated Series "Space Adventures"</p>
+                    <p className="text-blue-600 font-medium">
+                      Animated Series &#34;Space Adventures
+                    </p>
                     <p className="text-sm text-gray-600 mb-2">2020 - 2022</p>
                     <p className="text-gray-700">
-                      Voiced multiple characters across 3 seasons, including the main villain and several supporting
-                      characters, totaling over 60 episodes.
+                      Voiced multiple characters across 3 seasons, including the
+                      main villain and several supporting characters, totaling
+                      over 60 episodes.
                     </p>
                   </div>
                 </div>
@@ -310,5 +423,5 @@ export default function TalentProfileViewPage({ params }: { params: { id: string
         </Tabs>
       </main>
     </div>
-  )
+  );
 }

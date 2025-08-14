@@ -1,18 +1,32 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Textarea } from "@/components/ui/textarea"
-import { Calendar, Clock, MapPin, Upload, Users, Star, Play, Download } from "lucide-react"
+import { useState, use } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Upload,
+  Users,
+  Star,
+  Play,
+  Download,
+} from "lucide-react";
 
-export default function AuditionDetailPage({ params }: { params: { id: string } }) {
-  const [showSubmissionForm, setShowSubmissionForm] = useState(false)
+export default function AuditionDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = use(params);
+  const [showSubmissionForm, setShowSubmissionForm] = useState(false);
 
   // Mock audition data
   const audition = {
-    id: params.id,
+    id: id,
     title: "Lead Vocalist Audition",
     project: "Summer Music Festival",
     producer: "Nashville Records",
@@ -51,7 +65,7 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
         status: "pending",
       },
     ],
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -60,11 +74,15 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
         <div className="mb-8">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{audition.title}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">
+                {audition.title}
+              </h1>
               <p className="text-xl text-gray-600">{audition.project}</p>
               <p className="text-gray-500">{audition.producer}</p>
             </div>
-            <Badge className="bg-green-100 text-green-800">{audition.status}</Badge>
+            <Badge className="bg-green-100 text-green-800">
+              {audition.status}
+            </Badge>
           </div>
 
           {/* Key Details */}
@@ -109,7 +127,9 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
                 <CardTitle>About This Audition</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700 leading-relaxed">{audition.description}</p>
+                <p className="text-gray-700 leading-relaxed">
+                  {audition.description}
+                </p>
               </CardContent>
             </Card>
 
@@ -133,7 +153,9 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
             {/* Submissions (for producers) */}
             <Card>
               <CardHeader>
-                <CardTitle>Submissions ({audition.submissions.length})</CardTitle>
+                <CardTitle>
+                  Submissions ({audition.submissions.length})
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -142,11 +164,15 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
                       <div className="flex justify-between items-start mb-3">
                         <div>
                           <h4 className="font-semibold">{submission.talent}</h4>
-                          <p className="text-sm text-gray-500">Submitted {submission.submittedAt}</p>
+                          <p className="text-sm text-gray-500">
+                            Submitted {submission.submittedAt}
+                          </p>
                         </div>
                         <div className="flex items-center">
                           <Star className="w-4 h-4 text-yellow-500 mr-1" />
-                          <span className="text-sm font-medium">{submission.rating}</span>
+                          <span className="text-sm font-medium">
+                            {submission.rating}
+                          </span>
                         </div>
                       </div>
                       <div className="flex gap-2 mb-3">
@@ -195,7 +221,9 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-purple-600">{audition.compensation}</p>
+                  <p className="text-2xl font-bold text-purple-600">
+                    {audition.compensation}
+                  </p>
                   <p className="text-sm text-gray-500">Compensation</p>
                 </div>
                 <div className="text-center">
@@ -220,10 +248,14 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
               <CardContent>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <span className="text-purple-600 font-semibold text-lg">NR</span>
+                    <span className="text-purple-600 font-semibold text-lg">
+                      NR
+                    </span>
                   </div>
                   <h3 className="font-semibold">{audition.producer}</h3>
-                  <p className="text-sm text-gray-500">Music Production Company</p>
+                  <p className="text-sm text-gray-500">
+                    Music Production Company
+                  </p>
                   <div className="flex items-center justify-center mt-2">
                     <Star className="w-4 h-4 text-yellow-500 mr-1" />
                     <span className="text-sm">4.8 (127 reviews)</span>
@@ -243,20 +275,33 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Cover Message</label>
+                  <label className="block text-sm font-medium mb-2">
+                    Cover Message
+                  </label>
                   <Textarea placeholder="Tell the producer why you're perfect for this role..." />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Upload Materials</label>
+                  <label className="block text-sm font-medium mb-2">
+                    Upload Materials
+                  </label>
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                     <Upload className="w-8 h-8 mx-auto text-gray-400 mb-2" />
-                    <p className="text-gray-600">Drop files here or click to upload</p>
-                    <p className="text-sm text-gray-500">Video, audio, or document files (Max 100MB each)</p>
+                    <p className="text-gray-600">
+                      Drop files here or click to upload
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Video, audio, or document files (Max 100MB each)
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button className="bg-purple-600 hover:bg-purple-700">Submit Application</Button>
-                  <Button variant="outline" onClick={() => setShowSubmissionForm(false)}>
+                  <Button className="bg-purple-600 hover:bg-purple-700">
+                    Submit Application
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowSubmissionForm(false)}
+                  >
                     Cancel
                   </Button>
                 </div>
@@ -266,5 +311,5 @@ export default function AuditionDetailPage({ params }: { params: { id: string } 
         )}
       </div>
     </div>
-  )
+  );
 }
