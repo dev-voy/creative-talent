@@ -142,6 +142,79 @@ export default function HomePage() {
                 peace of mind for producers throughout the project lifecycle.
               </p>
             </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <svg
+                  className="w-6 h-6 text-purple-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v3m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Community Support
+              </h3>
+              <p className="text-gray-600">
+                Join a vibrant community of creatives, share experiences, and
+                get advice from industry veterans through our forums and events.
+              </p>
+            </div>
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <svg
+                  className="w-6 h-6 text-purple-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Personalized Profiles
+              </h3>
+              <p className="text-gray-600">
+                Showcase your portfolio, skills, and experience with
+                customizable profiles that attract the right opportunities.
+              </p>
+            </div>
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <svg
+                  className="w-6 h-6 text-purple-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v3m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Advanced Search
+              </h3>
+              <p className="text-gray-600">
+                Find the right talent or projects with powerful search filters
+                and recommendations tailored to your preferences.
+              </p>
+            </div>
           </div>
         </div>
       </main>
